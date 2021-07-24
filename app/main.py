@@ -20,14 +20,14 @@ def predict():
 	try:
 		year = int(request.args.get('year'))
 		mileage = int(request.args.get('mileage'))
-		state = request.args.get('state')
-		make = request.args.get('make')
-		model = request.args.get('model')
+		state = request.args.get('state').upper()
+		make = request.args.get('make').upper()
+		model = request.args.get('model').upper()
 		values = pd.DataFrame(np.array([year, mileage, state, make, model]).reshape(-1, 5), columns=["Year", "Mileage", "State", "Make", "Model"])
 		values.loc[:,"Year"] = values["Year"].astype("float").astype("int64")
 		values.loc[:,"Mileage"] = values["Mileage"].astype("float").astype("int64")
 		cost = reg_model.predict(values)
-		return {"cost": cost}
+		return {"cost": cost[0]}
 	except Exception as e:
 		print(e)
 		return {"error": "Invalid parameters"}
