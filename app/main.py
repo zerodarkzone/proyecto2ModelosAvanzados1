@@ -17,5 +17,6 @@ def predict():
 		model = request.args.get('model')
 		return {"cost": 25000}
 	except Exception as e:
+		print(e)
 		return {"error": "Invalid parameters"}
 		
