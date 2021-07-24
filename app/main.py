@@ -23,7 +23,10 @@ def predict():
 		state = request.args.get('state')
 		make = request.args.get('make')
 		model = request.args.get('model')
-		cost = reg_model.predict(pd.DataFrame(np.array([year, mileage, state, make, model])), columns=["Year", "Mileage", "State", "Make", "Model"])
+		values = pd.DataFrame(np.array([year, mileage, state, make, model]).reshape(-1, 5), columns=["Year", "Mileage", "State", "Make", "Model"])
+		values.loc[:,"Year"] = values["Year"].astype("float").astype("int64")
+		values.loc[:,"Mileage"] = values["Mileage"].astype("float").astype("int64")
+		cost = reg_model.predict(values)
 		return {"cost": cost}
 	except Exception as e:
 		print(e)
