@@ -7,8 +7,8 @@ import pickle
   
 app = Flask(__name__)
 model = None
-with open("notebook/LGBMRegressor3.pkl") as fmiodel
-	model = pickle.load(fmiodel)
+with open("notebook/LGBMRegressor3.pkl") as fim:
+	model = pickle.load(fim)
   
 @app.route("/", methods=['GET'])
 def home_view():
