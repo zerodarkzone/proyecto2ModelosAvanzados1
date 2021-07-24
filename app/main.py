@@ -2,6 +2,7 @@ from lightgbm import LGBMRegressor
 from flask import Flask
 from flask import request
 import pandas as pd
+import numpy as np
 
 import pickle
   
