@@ -13,7 +13,7 @@ with open("notebook/LGBMRegressor3.pkl", "rb") as fim:
   
 @app.route("/", methods=['GET'])
 def home_view():
-    return "<h3>Request de Ejemplo:</h3><a href="https://proyecto2-modelosa-vanzados1.herokuapp.com/predict?year=2014&mileage=31909&state=md&make=nissan&model=muranoawd">https://proyecto2-modelosa-vanzados1.herokuapp.com/predict?year=2014&mileage=31909&state=md&make=nissan&model=muranoawd</a>"
+    return "<h3>Request de Ejemplo:</h3><a href=""https://proyecto2-modelosa-vanzados1.herokuapp.com/predict?year=2014&mileage=31909&state=md&make=nissan&model=muranoawd"" target=""self"">https://proyecto2-modelosa-vanzados1.herokuapp.com/predict?year=2014&mileage=31909&state=md&make=nissan&model=muranoawd</a>"
 		
 @app.route("/predict", methods=['GET'])
 def predict():
