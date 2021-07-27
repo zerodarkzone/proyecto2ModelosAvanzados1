@@ -10,6 +10,10 @@ app = Flask(__name__)
 reg_model = None
 with open("notebook/LGBMRegressor3.pkl", "rb") as fim:
 	reg_model = pickle.load(fim)
+	
+reg_model2 = None
+with open("notebook/CatBoostRegressor.pkl", "rb") as fim:
+	reg_model2 = pickle.load(fim)
   
 @app.route("/", methods=['GET'])
 def home_view():
@@ -26,8 +30,12 @@ def predict():
 		values = pd.DataFrame(np.array([year, mileage, state, make, model]).reshape(-1, 5), columns=["Year", "Mileage", "State", "Make", "Model"])
 		values.loc[:,"Year"] = values["Year"].astype("float").astype("int64")
 		values.loc[:,"Mileage"] = values["Mileage"].astype("float").astype("int64")
-		cost = reg_model.predict(values)
-		return {"cost": cost[0]}
+		values.loc[:,"State"] = values["State"].astype("category")
+		values.loc[:,"Make"] = values["Make"].astype("category")
+		values.loc[:,"Model"] = values["Model"].astype("category")
+		cost1 = reg_model.predict(values)[0]
+		cost2 = reg_model2.predict(values)[0]
+		return {"cost": np.mean([cost1, cost2])}
 	except Exception as e:
 		print(e)
 		return {"error": "Invalid parameters"}
